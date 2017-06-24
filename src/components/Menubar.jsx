@@ -6,7 +6,9 @@ class Menubar extends Component{
         return (
             <header className="mdl-layout__header">
                 <div className="mdl-layout__header-row">
-                    <span className="mdl-layout-title">Quiz</span>
+                    <NavLink to="/" className="mdl-navigation__link">
+                        <span className="mdl-layout-title">Quiz</span>
+                    </NavLink>
                     <div className="mdl-layout-spacer"></div>
                     <nav className="mdl-navigation mdl-layout--large-screen-only">
                         <NavLink to="/rooms" className="mdl-navigation__link">Find a Room</NavLink>

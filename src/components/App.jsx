@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
 	BrowserRouter as Router,
 	Route,
+	Switch
 } from 'react-router-dom'
 
 import firebase from 'firebase'
@@ -10,6 +11,7 @@ import facebookProvider from '../firebase/provider/facebook'
 
 import Menubar from './Menubar'
 import Auth from './Auth'
+import Room from './Room'
 
 class App extends Component {
 	constructor(){
@@ -78,9 +80,12 @@ class App extends Component {
 					</div>
 					<main className="mdl-layout__content">
 						<div className="page-content">
-							<Route exact path="/" render={(props) => (
-								<Auth user={this.state.user} handleLoginWithFacebook={this.handleLoginWithFacebook} />	
-							)} />
+							<Switch>
+								<Route exact path="/" render={(props) => (
+									<Auth user={this.state.user} handleLoginWithFacebook={this.handleLoginWithFacebook} />	
+								)} />
+								<Route path="/rooms" component={Room}/>
+							</Switch>
 						</div>
 					</main>
 				</div>
