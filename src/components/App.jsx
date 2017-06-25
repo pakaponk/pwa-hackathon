@@ -67,27 +67,16 @@ class App extends Component {
 	render() {
 		return (
 			<Router>
-				<div className="mdl-layout mdl-js-layout mdl-layout mdl-layout--fixed-header">
+				<div className="page-wrapper">
 					<Menubar user={this.state.user}/>
-					<div className="mdl-layout__drawer">
-						<span className="mdl-layout-title">Quiz</span>
-						<nav className="mdl-navigation">
-							<a href="" className="mdl-navigation__link">Link</a>
-							<a href="" className="mdl-navigation__link">Link</a>
-							<a href="" className="mdl-navigation__link">Link</a>
-							<a href="" className="mdl-navigation__link">Link</a>
-						</nav>
+					<div>
+						<Switch>
+							<Route exact path="/" render={(props) => (
+								<Auth user={this.state.user} handleLoginWithFacebook={this.handleLoginWithFacebook} />	
+							)} />
+							<Route path="/rooms" component={Room}/>
+						</Switch>
 					</div>
-					<main className="mdl-layout__content">
-						<div className="page-content">
-							<Switch>
-								<Route exact path="/" render={(props) => (
-									<Auth user={this.state.user} handleLoginWithFacebook={this.handleLoginWithFacebook} />	
-								)} />
-								<Route path="/rooms" component={Room}/>
-							</Switch>
-						</div>
-					</main>
 				</div>
 			</Router>
 		);
