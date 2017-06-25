@@ -1,10 +1,10 @@
 {
-  "short_name": "PWA",
-  "name": "PWA Sample",
+  "short_name": "Quizzy",
+  "name": "Quizzy",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "192x192",
+      "src": "images/logo/icon.png",
+      "sizes": "512x512",
       "type": "image/png"
     }
   ],
