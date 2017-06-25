@@ -1,16 +1,12 @@
 import React, { Component } from 'react'
 import firebase from '../firebase/firebase'
 
-import InputField from './InputField'
-
-
 class RoomCreate extends Component{
     constructor(props){
         super(props)
 
         this.state = {
             room: {
-                name: ""
             }
         }
 
@@ -65,34 +61,37 @@ class RoomCreate extends Component{
     }
 
     render(){
-
         return (
-            <div style={{ maxWidth: '960px', margin: 'auto'}}>
+            <div className="container">
                 <div>
-                    <div>
-                        <h3>Create new Room</h3>
-                    </div>
-                    <div >
-                        <form onSubmit={() => this.handleSubmit}>
-                            <div>
-                                <InputField name="name" label="Room name" handleChange={this.handleChange} required={true} />
-                            </div>
+                    <h3>Create new Room</h3>
+                </div>
+                <div >
+                    <form onSubmit={() => this.handleSubmit}>
+                        <div className="form-group">
+                            <label className="control-label">Room name</label>
+                            <input type="text" className="form-control" name="name" onChange={this.handleChange} required/>
+                        </div>
 
-                            <div>
-                                <InputField name="category" label="Pick a Category" handleChange={this.handleChange} required={true} />
-                            </div>
+                        <div className="form-group">
+                            <label className="control-label">Category</label>
+                            <select name="category" className="form-control" onChange={this.handleChange} required>
+                                {!this.state.room.category && <option value="?">Select Category</option>}
+                                <option value="Animal">Animal</option>
+                            </select>
+                        </div>
 
-                            <div>
-                                <InputField type="number" name="totalQuizzes" label="Total Quizzes" handleChange={this.handleChange} required={true} />
-                            </div>
+                        <div className="form-group">
+                            <label className="control-label">Total Quizzes</label>
+                            <input type="number" name="totalQuizzes" className="form-control" onChange={this.handleChange} min="1" required/>
+                        </div>
 
-                            <div style={{marginTop: '20px'}}>
-                                <button className="mdc-button mdc-button--raised mdl-button--colored" onClick={(e) => this.handleSubmit(e)}>
-                                    Submit
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+                        <div>
+                            <button className="btn btn-primary" onClick={(e) => this.handleSubmit(e)}>
+                                Submit
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         )

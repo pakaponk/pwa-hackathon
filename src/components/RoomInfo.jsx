@@ -27,10 +27,24 @@ export default class RoomInfo extends Component{
         const participantsRef = firebase.database().ref(`participants/${this.props.match.params.id}`)
 
         participantsRef.on('value', (snapshot) => {
-            console.log(snapshot.val())
+            const participants = snapshot.val()
 
             this.setState((prevState) => {
-                if (snapshot.val()){
+                if (participants){
+                    const participants = snapshot.val()
+                    const isAlreadyJoined = Object.values(participants).some((item) => {
+                        return item.uid === firebase.auth().currentUser.uid
+                    })
+                
+                    if (!isAlreadyJoined){
+                        const user = firebase.auth().currentUser
+                        participantsRef.push().set({
+                            uid: user.uid,
+                            displayName: user.displayName,
+                            photoUrl: user.photoURL
+                        })
+                    }
+
                     return {
                         participants: snapshot.val()
                     }
@@ -46,8 +60,6 @@ export default class RoomInfo extends Component{
                 }
             })
         })
-
-
     }
 
     componentWillUnmount(){
