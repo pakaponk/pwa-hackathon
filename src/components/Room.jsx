@@ -7,9 +7,10 @@ import RoomIndex from './RoomIndex'
 const Room = (props) => {
 	return (
 		<Switch>
-			<Route path="/" component={RoomIndex}></Route>
+			<Route path="/rooms/create" component={RoomCreate}></Route>
+			<Route path="/rooms" component={RoomIndex}></Route>
 		</Switch>
 	)
 }
 
-export default Room 
+export default Room

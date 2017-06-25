@@ -1,38 +1,53 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import RoomCard from './RoomCard'
 
-const generateRoomCard = function*(total){
-	for (let i = 0;i < total;i++){
-		const room = {
-			title: `Room ${i+1}`,
-			description: `Hosted by John Doe`
-		}
+import firebase from '../firebase/firebase'
 
-		yield (
-			<RoomCard title={room.title} description={room.description}/>        
-		)
-	}
-}
+class RoomIndex extends Component{
+    constructor(props){
+        super(props)
+        this.state = {
+            rooms: []
+        }
+    }
 
-const RoomIndex = (props) => {
-	const rooms = [...generateRoomCard(3)]
+    componentDidMount(){
+        const roomsRef = firebase.database().ref('rooms/')
 
-	return (
-		<div className="mdl-grid" style={{maxWidth: '960px'}}>
-			<div className="mdl-layout__content">
-				<div style={{display: 'flex', alignItems: 'center', paddingLeft: '16px', paddingRight: '16px'}}>
-					<h3 style={{marginRight: 'auto'}}>Rooms</h3>
-					<button className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
-						<i className="material-icons">add</i>
-						<span style={{paddingLeft: '10px', paddingTop: '2px'}}>Create new Room</span>
-					</button>
-				</div>
-				<div className="mdl-grid">
-					{rooms}
-				</div>
-			</div>
-		</div>
-	)
+        roomsRef.on('value', (snapshot) => {
+            this.setState({
+                rooms: Object.values(snapshot.val())
+            })
+        })
+    }
+
+    render(){
+
+        const roomCards = this.state.rooms.map( room => 
+            <RoomCard key={room.host.uid} room={room}/>
+        )
+
+        return (
+            <div style={{maxWidth: '960px', margin: 'auto'}}>
+                <div>
+                    <div style={{display: 'flex', alignItems: 'center', paddingLeft: '16px', paddingRight: '16px'}}>
+                        <h3 style={{marginRight: 'auto'}}>Rooms</h3>
+                        <Link to="/rooms/create" className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
+                            <i className="material-icons">add</i>
+                            <span style={{paddingLeft: '10px', paddingTop: '2px'}}>Create new Room</span>
+                        </Link>
+                    </div>
+                    <div className="mdc-layout-grid">
+                        <div className="mdc-layout-grid__inner">
+                            {roomCards}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+    
 }
 
 export default RoomIndex
