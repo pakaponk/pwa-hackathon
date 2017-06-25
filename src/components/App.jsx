@@ -22,6 +22,9 @@ class App extends Component {
 				data: {}
 			}
 		}
+
+		this.handleLogout = this.handleLogout.bind(this)
+		this.handleLoginWithFacebook = this.handleLoginWithFacebook.bind(this)
 	}
 
 	componentDidMount(){
@@ -64,11 +67,24 @@ class App extends Component {
 		}
 	}
 
+	async handleLogout(event){
+		event.preventDefault()
+
+		this.setState({
+			user: {
+				isAuthenticated: false,
+				data: {}
+			}
+		})
+
+		await firebase.auth().signOut()
+	}
+
 	render() {
 		return (
 			<Router>
 				<div className="page-wrapper">
-					<Menubar user={this.state.user}/>
+					<Menubar user={this.state.user} handleLogout={this.handleLogout}/>
 					<div>
 						<Switch>
 							<Route exact path="/" render={(props) => (
