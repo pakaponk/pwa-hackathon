@@ -25,23 +25,22 @@ class RoomIndex extends Component{
     render(){
 
         const roomCards = this.state.rooms.map( room => 
-            <RoomCard key={room.host.uid} room={room}/>
+            <div className="col-md-4 col-sm-6">
+                <RoomCard key={room.host.uid} room={room}/>
+            </div>
         )
 
         return (
-            <div style={{maxWidth: '960px', margin: 'auto'}}>
+            <div className="container">
                 <div>
-                    <div style={{display: 'flex', alignItems: 'center', paddingLeft: '16px', paddingRight: '16px'}}>
+                    <div style={{display: 'flex', alignItems: 'center', marginBottom: '20px'}}>
                         <h3 style={{marginRight: 'auto'}}>Rooms</h3>
-                        <Link to="/rooms/create" className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
-                            <i className="material-icons">add</i>
-                            <span style={{paddingLeft: '10px', paddingTop: '2px'}}>Create new Room</span>
+                        <Link to="/rooms/create" className="btn btn-primary">
+                            Create new Room
                         </Link>
                     </div>
-                    <div className="mdc-layout-grid">
-                        <div className="mdc-layout-grid__inner">
-                            {roomCards}
-                        </div>
+                    <div className="row">
+                        {roomCards}
                     </div>
                 </div>
             </div>
