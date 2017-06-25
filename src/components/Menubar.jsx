@@ -4,21 +4,25 @@ import { NavLink } from 'react-router-dom'
 class Menubar extends Component{
     render(){
         return (
-            <header className="mdl-layout__header">
-                <div className="mdl-layout__header-row">
-                    <NavLink to="/" className="mdl-navigation__link">
-                        <span className="mdl-layout-title">Quiz</span>
-                    </NavLink>
-                    <div className="mdl-layout-spacer"></div>
-                    <nav className="mdl-navigation mdl-layout--large-screen-only">
-                        <NavLink to="/rooms" className="mdl-navigation__link">Find a Room</NavLink>
+            <header className="navbar navbar-default">
+                <div className="container">
+                    <div className="navbar-header">
+                        <NavLink to="/" className="navbar-brand">
+                            <span>Quiz</span>
+                        </NavLink>
+                    </div>
+                    <nav>
+                        <ul className="nav navbar-nav navbar-right">
+                            <li>
+                                <NavLink to="/rooms">Find a Room</NavLink>
+                            </li>
+                            { this.props.user.isAuthenticated &&
+                                <li>
+                                    <NavLink to="/">{this.props.user.data.displayName}</NavLink>
+                                </li>
+                            }
+                        </ul>
                     </nav>
-                    { this.props.user.isAuthenticated && (
-                            <nav className="mdl-navigation">
-                                <a href="" className="mdl-navigation__link">{this.props.user.data.displayName}</a>
-                            </nav>
-                        )
-                    }
                 </div>
             </header>
         )
