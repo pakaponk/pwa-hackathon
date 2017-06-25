@@ -25,8 +25,8 @@ class RoomIndex extends Component{
     render(){
 
         const roomCards = this.state.rooms.map( room => 
-            <div className="col-md-4 col-sm-6">
-                <RoomCard key={room.host.uid} room={room}/>
+            <div  key={room.host.uid} className="col-md-4 col-sm-6">
+                <RoomCard room={room}/>
             </div>
         )
 
